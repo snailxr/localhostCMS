@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User</title>
+    <title>Role</title>
 </head>
 <body>
-<h1>user</h1>
+<h1>Role</h1>
 
 {% if form.errors %}
     <p style="color: red;">
@@ -14,8 +14,9 @@
 
 <form action="" method="post">
     {%csrf_token%}
-    {{ form.name.errors }}
-    {{ form.as_table }}
+    <label for="id_name">姓名：</label>{{form.name}}{{form.name.errors}}<br><br>
+    <label for="id_description">说明：</label>{{form.description}}{{form.description.errors}}<br/>
+
     <input type="submit" value="Submit">
 </form>
 </body>

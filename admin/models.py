@@ -10,11 +10,11 @@ class User(models.Model):
     email = models.EmailField()
     password = models.CharField(max_length=50)
     USER_STATUS_CHOICES = (
-        (u'-1', u'disabled'),
-        (u'0', u'ok'),
+        ('DISABLED', 'disabled'),
+        ('OK', 'ok'),
     )
     #状态
-    status = models.IntegerField(choices=USER_STATUS_CHOICES,blank=True,null=True)
+    status = models.CharField(choices=USER_STATUS_CHOICES,blank=True,null=True,max_length=20)
     lastLogin = models.DateTimeField(blank=True,null=True,db_column='last_login')
     createdDate = models.DateTimeField(auto_now_add=True, blank=True, null=True,db_column='created_date')
     description = models.CharField(max_length=1000, blank=True,null=True)

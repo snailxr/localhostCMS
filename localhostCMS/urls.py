@@ -1,6 +1,8 @@
 from django.conf.urls import patterns, include, url
 from admin.views import user
 from admin.views import role
+from admin.views import userList
+from admin.views import roleList
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 # admin.autodiscover()
@@ -17,4 +19,6 @@ urlpatterns = patterns('',
      url(r'^adminself/', include(admin.site.urls)),
      url(r'^user/$',user),
      url(r'^role/$',role),
+     url(r'^userList/$',userList),
+     url(r'^roleList/$',roleList),
 )

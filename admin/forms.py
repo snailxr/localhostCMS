@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from admin.models import User
 from admin.models import Role
 from django.forms import Textarea
+
 __author__ = 'jlchen'
 from django import forms
 
@@ -21,28 +22,41 @@ from django import forms
 #         return name
 class UserForm(ModelForm):
     class Meta:
-        model=User
-        fields=('name','email','description','status',)
-        widgets={
-            'name':forms.TextInput(attrs={'class':'name'}),
-            'status':forms.Select(choices=User.USER_STATUS_CHOICES)
+        model = User
+        fields = ('name', 'email', 'description', 'status',)
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'name'}),
+            'status': forms.Select(choices=User.USER_STATUS_CHOICES)
         }
+
     def clean_name(self):
         name = self.cleaned_data['name']
         num_words = len(name)
         if num_words < 4:
             raise forms.ValidationError("最少輸入4个字符!")
         return name
+
+
 class RoleForm(ModelForm):
     class Meta:
-        model=Role
-        fields=('name','description',)
+        model = Role
+        fields = ('name', 'description',)
         widgets = {
-            'name':forms.TextInput(attrs={'class':'name'})
-            }
+            'name': forms.TextInput(attrs={'class': 'name'})
+        }
+
     def clean_name(self):
         name = self.cleaned_data['name']
         num_words = len(name)
         if num_words < 4:
             raise forms.ValidationError("最少輸入4个字符!")
         return name
+
+
+class UserModelMultipleChoiceField(forms.ModelMultipleChoiceField):
+    def label_from_instance(self, obj):
+        return obj.name
+
+
+class AddRoleForm(forms.Form):
+    roles = UserModelMultipleChoiceField(queryset=User.objects.all(), widget=forms.CheckboxSelectMultiple(attrs={'xx':'xx'}),initial={'roles':'fdsasf'})

@@ -2,6 +2,7 @@
 from django.shortcuts import render_to_response
 from admin.forms import UserForm
 from admin.forms import RoleForm
+from admin.forms import AddRoleForm
 from django.template import RequestContext
 from admin.models import User
 from admin.models import Role
@@ -21,7 +22,7 @@ def user(request):
             # user=User(name=userValue['name'],email=userValue['email'],description=userValue['description'])
             # user.save()
     else:
-        form = UserForm()
+        form = UserForm(initial={'name': 'input the name'})
     return render_to_response('user.html', {'form': form},context_instance=RequestContext(request))
 
 def userList(request):
@@ -40,4 +41,10 @@ def role(request):
 def roleList(request):
     roleList=Role.objects.all()
     return render_to_response('roleList.html', {'roleList': roleList},context_instance=RequestContext(request))
+
+def addRoleForm(request):
+    form=AddRoleForm()
+    print ', '.join(['%s:%s' % item for item in form.fields['roles'].__dict__.items()])
+    print form.fields['roles']._queryset[0].name
+    return render_to_response('addRoleForm.html', {'form': form},context_instance=RequestContext(request))
 

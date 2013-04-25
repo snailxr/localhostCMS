@@ -3,6 +3,7 @@ from admin.views import user
 from admin.views import role
 from admin.views import userList
 from admin.views import roleList
+from admin.views import addRoleForm
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 # admin.autodiscover()
@@ -21,4 +22,5 @@ urlpatterns = patterns('',
      url(r'^role/$',role),
      url(r'^userList/$',userList),
      url(r'^roleList/$',roleList),
+     url(r'^addRoleForm/$',addRoleForm),
 )
